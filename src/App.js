@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from "react";
+import { connect } from 'react-redux';
+import { SITE_URL } from './config/config';
+import Blog from './components/Blog/Index/index';
+import Panel from './components/Panel/Index/index';
+import Login from './components/Panel/Login/index';
+import { Route } from 'react-router-dom';
+import "./style.css";
+
+class App extends Component {
+  async UNSAFE_componentWillMount() {
+
+  };
+  render() {
+    if (window.location.href === (SITE_URL + "/login")) {
+      return <Route component={Login}></Route>;
+    }
+    return (
+      <div className="App" >
+        <Route exact path="/" component={Blog} />
+        <Route exact path="/panel" component={Panel} />
+      </div >
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = ({ }) => {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = {
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)((App));
