@@ -96,7 +96,7 @@ class Layout extends Component {
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)">
-                                            <i className="menu-icon icon-apps" /><span>Apps</span><i className="accordion-icon fas fa-angle-left" />
+                                            <i className="menu-icon icon-apps" /><span>Genel Bilgi</span><i className="accordion-icon fas fa-angle-left" />
                                         </a>
                                         <ul className="sub-menu">
                                             <li><a href="app-mailbox.html">Mailbox</a></li>
@@ -107,7 +107,7 @@ class Layout extends Component {
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)">
-                                            <i className="menu-icon icon-layers" /><span>Layouts</span><i className="accordion-icon fas fa-angle-left" />
+                                            <i className="menu-icon icon-layers" /><span>Eğitim Hayatım</span><i className="accordion-icon fas fa-angle-left" />
                                         </a>
                                         <ul className="sub-menu">
                                             <li><a href="layout-blank.html">Blank Page</a></li>
@@ -119,7 +119,7 @@ class Layout extends Component {
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)">
-                                            <i className="menu-icon icon-brush" /><span>Styles</span><i className="accordion-icon fas fa-angle-left" />
+                                            <i className="menu-icon icon-brush" /><span>Neden Yazılım</span><i className="accordion-icon fas fa-angle-left" />
                                         </a>
                                         <ul className="sub-menu">
                                             <li><a href="style-typography.html">Typography</a></li>
@@ -130,7 +130,7 @@ class Layout extends Component {
                                     </li>
                                     <li className="active-page">
                                         <a href="javascript:void(0)">
-                                            <i className="menu-icon icon-flash_on" /><span>Components</span><i className="accordion-icon fas fa-angle-left" />
+                                            <i className="menu-icon icon-flash_on" /><span>Hedefler ve İstekler</span><i className="accordion-icon fas fa-angle-left" />
                                         </a>
                                         <ul className="sub-menu">
                                             <li><a href="comp-alerts.html">Alerts</a></li>
@@ -156,7 +156,7 @@ class Layout extends Component {
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)">
-                                            <i className="menu-icon icon-code" /><span>Forms</span><i className="accordion-icon fas fa-angle-left" />
+                                            <i className="menu-icon icon-code" /><span>Günün Konusu</span><i className="accordion-icon fas fa-angle-left" />
                                         </a>
                                         <ul className="sub-menu">
                                             <li><a href="form-elements.html">Form Elements</a></li>
@@ -282,50 +282,11 @@ class Layout extends Component {
                             </nav>
                         </div>{/* /Page Header */}
                         {/* Page Inner */}
-                        <div className="page-inner no-page-title">
-                            <div id="main-wrapper">
-                                <div className="content-header">
-                                    <nav aria-label="breadcrumb">
-                                        <ol className="breadcrumb breadcrumb-style-1">
-                                            <li className="breadcrumb-item"><a href="#">Forms</a></li>
-                                            <li className="breadcrumb-item active" aria-current="page">Form Elements</li>
-                                        </ol>
-                                    </nav>
-                                    <h1 className="page-title">Form Elements</h1>
-                                </div>
-                                <h5 className="page-desc">Examples and usage guidelines for form control styles, layout options, and custom components for creating a wide variety of forms.</h5>
-                                <div className="divider" />
-                                <div className="row">
-                                    <div className="col-xl">
-                                        <div className="card">
-                                            <div className="card-body">
-                                                <h5 className="card-title">Basic Example</h5>
-                                                <p>Here’s a quick example to demonstrate Bootstrap’s form styles. </p>
-                                                <form>
-                                                    <div className="form-group">
-                                                        <label htmlFor="exampleInputEmail1">Email address</label>
-                                                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-                                                        <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label htmlFor="exampleInputPassword1">Password</label>
-                                                        <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
-                                                    </div>
-                                                    <div className="custom-control custom-checkbox form-group">
-                                                        <input type="checkbox" className="custom-control-input" id="exampleCheck1" />
-                                                        <label className="custom-control-label" htmlFor="exampleCheck1">Check me out</label>
-                                                    </div>
-                                                    <button type="submit" className="btn btn-primary">Submit</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div></div>
+                        
                         <div className="page-inner no-page-title">
 
                             <div className="page-footer">
-                                <p>2019 © stacks</p>
+                                <p>2019 © EZGİ DİNLER</p>
                             </div>
                         </div>
                         {/* /Page Inner */}

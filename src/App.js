@@ -20,6 +20,7 @@ class App extends Component {
       <div className="App" >
         <Route exact path="/" component={Blog} />
         <Route exact path="/panel" component={Panel} />
+        <Route exact path="/panel/genelBilgi" component={Panel} />
       </div >
     );
   }

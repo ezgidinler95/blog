@@ -128,29 +128,9 @@ class Layout extends Component {
                 <article className="doc-content">
                   <div className="column-half">
                     <p>
-                      We would like to thank you for purchasing sorbroix! We are very
-                      pleased you have chosen sorbroix for your website, you will not be
-                      disappointed! Before you get started, please be sure to always check
-                      out these documentation files. We outline all kinds of good
-                      information, and provide you with all the details you need to use
-                      sorbroix. sorbroix can only be used with WordPress and we assume
-                      that you already have WordPress installed and ready to go. If you do
-                      not, please see our section on WordPress to help you get started.
-            </p>
-                    <p>
-                      If you are unable to find your answer here in our documentation, we
-                      encourage you to search our Knowledgebase, watch our Video
-              Tutorials, and also perform a{" "}
-                      <a href="http://shthemewp@gmail.com/" target="_blank">
-                        Forum Search
-              </a>{" "}
-                      for your answer. Chances are your question or issue have been
-                      brought up already and the answer is waiting to be found. If you are
-                      unable to find it anywhere, then please go go our forum section and
-                      post up a new topic with all the details we need. Please be sure to
-                      include your site URL as well. Thank you, we hope you enjoy using
-                      sorbroix!
-            </p>
+                  Selam Ezgi ben :) 24.yaşım bitmek üzere ve henüz ne kendim için ne de bir başkası için elle tutuluyor bişey yapamadım :D Fatih Sultam Mehmet 20 ytaşında İstanbul'u fethetmişti.
+                     </p>
+                 
                   </div>
                   <div className="column-half column-half-last">
                     <img src="assets/images/screenshot.png" alt="screenshot sorbroix" />

@@ -9,17 +9,28 @@ import rootReducer from './reducers/rootReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
+import reduxPromise from "redux-promise-middleware";
+import logger from 'redux-logger';
 
 const store = createStore(
     rootReducer,
     composeWithDevTools(
-        applyMiddleware(thunk)
+        applyMiddleware(reduxPromise, thunk ,logger)
     )
 );
 
 ReactDOM.render(<BrowserRouter>
     <Provider store={store}>
-        <App />
+        <SnackbarProvider
+            maxSnack={10}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right'
+            }}
+        >
+            <App />
+        </SnackbarProvider>
     </Provider>
 </BrowserRouter>
     , document.getElementById('root'));
