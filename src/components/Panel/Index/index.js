@@ -359,8 +359,7 @@ class Layout extends Component {
                                 </div>
                             </div>
                         </div>
-
-
+                        
                         <div className="page-inner no-page-title">
                             <div id="main-wrapper">
                                 <div className="divider" />
