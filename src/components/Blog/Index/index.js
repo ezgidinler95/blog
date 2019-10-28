@@ -1,18 +1,22 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
+import {getAllGeneralInformation} from '../../../actions/generalInformation';
+import { getAllHobby} from '../../../actions/hobby';
 import '../../../styles/assets/css/font-awesome.css';
 //import '../../../styles/assets/css/jquary.fancybox.css';
 import '../../../styles/blog.css';
 
 
 class Layout extends Component {
+
     async UNSAFE_componentWillMount() {
-  
+      await this.props.getAllGeneralInformation();
+      await this.props.getAllHobby();
     };
+
     render() {
-
+      console.log(this.props.hobbies ,  "burda");
       return (
-
         <div className="App" >
           <div>
             <div className="documentation-menu">
@@ -24,7 +28,7 @@ class Layout extends Component {
                      </a>
                     <ul className="children">
                       <li>
-                        <a href="#wp-info">WordPress Information</a>
+                        <a href="#wp-info">Hobbiler</a>
                       </li>
                       <li>
                         <a href="#RFB">Requirements For sorbroix</a>
@@ -109,10 +113,10 @@ class Layout extends Component {
                     </ul>
                   </li>
                   <li>
-                    <a href="#widget">Widgets</a>
+                    <a href="#widget">İletişim</a>
                   </li>
                   <li>
-                    <a href="#extra">Extra</a>
+                    <a href="#extra">Görüş ve Önerileriniz</a>
                     <ul className="children">
                       <li>
                         <a href="#extra">Make your site run faster</a>
@@ -126,65 +130,45 @@ class Layout extends Component {
               <section id="more" className="Top_doc hentry">
                 <h1 className="doc-title">Kim Bu Ezgi :) </h1>
                 <article className="doc-content">
-                  <div className="column-half">
-                    <p>
-                  Selam Ezgi ben :) 24.yaşım bitmek üzere ve henüz ne kendim için ne de bir başkası için elle tutuluyor bişey yapamadım :D Fatih Sultam Mehmet 20 ytaşında İstanbul'u fethetmişti.
-                     </p>
-                 
-                  </div>
-                  <div className="column-half column-half-last">
-                    <img src="assets/images/screenshot.png" alt="screenshot sorbroix" />
-                  </div>
-                  <div className="clear" />
+                  {
+                   this.props.generalInformations.map(generalInformation => generalInformation.genelBilgi)
+                  }
                 </article>
               </section>
               <section id="wp-info" className="hentry">
                 <header className="entry-header">
-                  <h2 className="entry-title">WordPress Information</h2>
+                  <h2 className="entry-title">Hobiler</h2>
                 </header>
                 <article className="entry-content">
-                  <p>
-                    To install this theme you must have a working version of WordPress
-                    already installed. If you need help installing WordPress, follow the
-            instructions in{" "}
-                    <a href="http://codex.wordpress.org/Installing_WordPress">
-                      WordPress Codex
-            </a>{" "}
-                    or you can watch the{" "}
-                    <a href="http://vimeo.com/17147778">Instructional Video</a> created by
-                    Woo Themes. Below are all the useful links for WordPress information.
-          </p>
+                <h2>Bu ayın enleri :D :D </h2> 
+                <br></br>   
                   <div className="column-half">
                     <div className="shortcode-list">
                       <ul>
-                        <li>
-                          <a href="http://codex.wordpress.org/Installing_WordPress">
-                            WordPress Codex
-                  </a>{" "}
-                          – general info about WordPress and how to install on your server
+                  <li>
+                        <p>en sevdiğim spor dalı:</p>
+                        {
+                       this.props.hobbies.map(hobby => hobby.spor)
+                     }
                 </li>
-                        <li>
-                          <a href="http://vimeo.com/17147778">Instructional Video</a> –
-                          awesome How-To video created by Woo Themes
+                <li>
+                        <p>en sevdiğim spor müzik türü:</p>
+                        {
+                       this.props.hobbies.map(hobby => hobby.müzik)
+                     }
                 </li>
-                        <li>
-                          <a href="http://codex.wordpress.org/First_Steps_With_WordPress">
-                            First Steps With WordPress
-                  </a>{" "}
-                          – general information that covers a wide variety of topics
+                <li>
+                        <p>en sevdiğim spor dans:</p>
+                        {
+                       this.props.hobbies.map(hobby => hobby.dans)
+                     }
                 </li>
-                        <li>
-                          <a href="http://codex.wordpress.org/FAQ_New_To_WordPress">
-                            FAQ New To WordPress
-                  </a>{" "}
-                          – the most popular FAQ’s regarding WordPress
-                </li>
-                        <li>
-                          <a href="http://wp.tutsplus.com/sessions/wp101-basix-training/">
-                            WP101 Basix Training videos
-                  </a>{" "}
-                          – some great videos from WPTuts on WordPress
-                </li>
+                <li>
+                        <p>en sevdiğim spor kitap:</p>
+                        {
+                       this.props.hobbies.map(hobby => hobby.kitap)
+                     }
+                </li>    
                       </ul>
                     </div>
                   </div>
@@ -1318,14 +1302,16 @@ class Layout extends Component {
     }
   }
   
-  const mapStateToProps = ({ }) => {
+  const mapStateToProps = ({ generalInformationReducer , hobbyReducer}) => {
     return {
-  
+      ...generalInformationReducer,
+      ...hobbyReducer,
     }
   }
   
   const mapDispatchToProps = {
-  
+    getAllGeneralInformation,
+    getAllHobby
   }
   
   export default connect(mapStateToProps, mapDispatchToProps)((Layout));

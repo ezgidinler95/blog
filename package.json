@@ -18,7 +18,8 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^6.1.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sweetalert": "^2.1.2"
   },
   "scripts": {
     "start:mac": "PORT=3001 react-scripts start",

@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
+import { addGeneralInformation } from '../../../actions/generalInformation';
+import { addHobby } from '../../../actions/hobby';
+import swal from 'sweetalert';
 import '../../../styles/assetsss/css/custom.css';
 import '../../../styles/assetsss/css/concept.min.css';
 //import '../../../styles/assetsss/plugins/custom.css';
@@ -10,8 +13,60 @@ import '../../../styles/assetsss/plugins/switchery/switchery.min.css';
 
 class Layout extends Component {
 
+    handleAddGeneralInformationSubmit = async (e, state) => {
+        const generalInformation = {
+            genelBilgi: e.target.genelBilgi.value,
+        };
+        return swal({
+            title: "Emin misin?",
+            text: "Yeni bir içerik ekliceksin!",
+            icon: "warning",
+            buttons: ["Hayır!", "Evet!"],
+        })
+            .then(async (value) => {
+                if (value) {
+                    await this.props.addGeneralInformation(generalInformation);
+                    if (this.props.addGeneralInformationResult.code === 200) {
+                        alert("kayıt ekleme işi başarılı");
+                    } else {
+                        alert(" Üzgünüm, kayıt ekleme işi başarısız!!!");
+                    }
+                }
+            });
+    }
+
+
+    handleAddHobbySubmit = async (e, state) => {
+        const hobby = {
+            spor: e.target.spor.value,
+            dans: e.target.dans.value,
+            müzik: e.target.müzik.value,
+            kitap: e.target.kitap.value,
+
+        };
+        return swal({
+            title: "Emin misin?",
+            text: "Yeni bir içerik ekliceksin!",
+            icon: "warning",
+            buttons: ["Hayır!", "Evet!"],
+        })
+            .then(async (value) => {
+                if (value) {
+                    await this.props.addHobby(hobby);
+                    if (this.props.addHobbyResult.code === 200) {
+                        alert("kayıt ekleme işi başarılı");
+                    } else {
+                        alert(" Üzgünüm, kayıt ekleme işi başarısız!!!");
+                    }
+                }
+            });
+
+    }
+
     render() {
+        const { classes } = this.props;
         return (
+
             <div className="Layout" >
                 <div className="page-container">
                     {/* Page Sidebar */}
@@ -282,9 +337,58 @@ class Layout extends Component {
                             </nav>
                         </div>{/* /Page Header */}
                         {/* Page Inner */}
-                        
-                        <div className="page-inner no-page-title">
 
+                        <div className="page-inner no-page-title">
+                            <div id="main-wrapper">
+                                <div className="divider" />
+                                <div className="row">
+                                    <div className="col-xl">
+                                        <div className="card">
+                                            <div className="card-body">
+                                                <h5 className="card-title">GENEL BİLGİ FORMU</h5>
+                                                <form onSubmit={(e) => { e.preventDefault(); this.handleAddGeneralInformationSubmit(e, this.state) }}>
+                                                    <div className="form-group">
+                                                        <label htmlFor="genelBilgi">Genel Bilgi</label>
+                                                        <textarea row="80" cols="50" type="text" className="form-control" name="genelBilgi" id="genelBilgi" aria-describedby="emailHelp" placeholder="Genel Bilgi" />
+                                                    </div>
+                                                    <button type="submit" className="btn btn-primary">KAYDET</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div className="page-inner no-page-title">
+                            <div id="main-wrapper">
+                                <div className="divider" />
+                                <div className="row">
+                                    <div className="col-xl">
+                                        <div className="card">
+                                            <div className="card-body">
+                                                <h5 className="card-title">HOBİLER </h5>
+                                                <form onSubmit={(e) => { e.preventDefault(); this.handleAddHobbySubmit(e, this.state) }}>
+                                                    <div className="form-group">
+                                                        <label htmlFor="spor">En sevdiğiniz spor </label>
+                                                        <input type="text" className="form-control" name="spor" id="spor" aria-describedby="emailHelp" placeholder="Spor" />
+                                                        <label htmlFor="spor">En sevdiğiniz dans </label>
+                                                        <input type="text" className="form-control" name="dans" id="dans" aria-describedby="emailHelp" placeholder="Dans" />
+                                                        <label htmlFor="spor">En sevdiğiniz müzik türü  </label>
+                                                        <input type="text" className="form-control" name="müzik" id="müzik" aria-describedby="emailHelp" placeholder="Müzik" />
+                                                        <label htmlFor="spor">En sevdiğiniz kitap </label>
+                                                        <input type="text" className="form-control" name="kitap" id="kitap" aria-describedby="emailHelp" placeholder="Kitap " />
+                                                    </div>
+                                                    <button type="submit" className="btn btn-primary">KAYDET</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="page-inner no-page-title">
                             <div className="page-footer">
                                 <p>2019 © EZGİ DİNLER</p>
                             </div>
@@ -410,22 +514,22 @@ class Layout extends Component {
                         </div>
                     </div>{/* /Page Content */}
                 </div>{/* /Page Container */}
-
-
             </div >
         );
     }
 }
 
-const mapStateToProps = ({ }) => {
+const mapStateToProps = ({ generalInformationReducer, hobbyReducer }) => {
     return {
-
+        ...generalInformationReducer,
+        ...hobbyReducer,
 
     }
 }
 
 const mapDispatchToProps = {
-
+    addGeneralInformation,
+    addHobby
 }
 
 

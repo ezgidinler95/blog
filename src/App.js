@@ -5,6 +5,7 @@ import { SITE_URL } from './config/config';
 import Blog from './components/Blog/Index/index';
 import Panel from './components/Panel/Index/index';
 import Login from './components/Panel/Login/index';
+import Genelbilgi from "./components/Panel/GeneralInformation/index";
 import { Route } from 'react-router-dom';
 import "./style.css";
 
@@ -20,7 +21,7 @@ class App extends Component {
       <div className="App" >
         <Route exact path="/" component={Blog} />
         <Route exact path="/panel" component={Panel} />
-        <Route exact path="/panel/genelBilgi" component={Panel} />
+        <Route exact path="/panel/genelBilgi" component={Genelbilgi} />
       </div >
     );
   }

@@ -5,6 +5,10 @@ export const ADD_GENERAL_INFORMATION_PENDING = "ADD_GENERAL_INFORMATION_PENDING"
 export const ADD_GENERAL_INFORMATION_FULFILLED = "ADD_GENERAL_INFORMATION_FULFILLED";
 export const ADD_GENERAL_INFORMATION_REJECTED = "ADD_GENERAL_INFORMATION_REJECTED";
 
+export const ALL_GENERAL_INFORMATION_PENDING = "ALL_GENERAL_INFORMATION_PENDING";
+export const ALL_GENERAL_INFORMATION_FULFILLED = "ALL_GENERAL_INFORMATION_FULFILLED";
+export const ALL_GENERAL_INFORMATION_REJECTED = "ALL_GENERAL_INFORMATION_REJECTED";
+
 
 export function addGeneralInformation(generalInformation) {
     return async dispatch => {
@@ -13,5 +17,15 @@ export function addGeneralInformation(generalInformation) {
             payload: axios.post(`${API_URL}/general-information`, generalInformation)
                 .then(result => result.data)
         })
+    }
+}
+
+export function getAllGeneralInformation() {
+    return async dispatch => {
+        await dispatch({
+            type: "ALL_GENERAL_INFORMATION",
+            payload: axios.get(`${API_URL}/general-information/all`)
+                .then(result => result.data)
+        });
     }
 }

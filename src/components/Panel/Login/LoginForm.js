@@ -12,10 +12,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 class LoginForm extends React.Component {
 
     state = {
-        email: '',
-        password: '',
-        errors: {},
-        messageKey: ''
     }
 
     handleChange = (e) => {
@@ -23,7 +19,6 @@ class LoginForm extends React.Component {
             [e.target.name]: e.target.value
         })
     }
-
     render() {
         const { classes } = this.props;
         return (

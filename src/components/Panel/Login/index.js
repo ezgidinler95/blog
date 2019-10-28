@@ -3,36 +3,59 @@ import React from "react";
 import { connect } from 'react-redux';
 // actionları sayfaya dahil et
 import { login } from '../../../actions/user'
+import swal from 'sweetalert';
 import LoginForm from './LoginForm'
 
 class Login extends React.Component {
 
     state = {
-        email: '',
-        password: '',
-        errors: {},
-        messageKey: ''
+
     }
 
     UNSAFE_componentWillMount() {
         localStorage.clear();
     }
 
-    login = async (state) => {
-        console.log("burda");
-        await this.props.login(state);
-        console.log(this.props.loginUserResult, "gelen");
-        if (this.props.loginUserResult.code === 200) {
-            await localStorage.setItem("user", JSON.stringify(this.props.loginUserResult.data.person));
-            this.props.closeSnackbar(this.state.messageKey);
-            alert("oturum açılıyor");
+    login = async (e, state) => {
+        const loginValue = {
+            email: e.target.email.value,
+            password: e.target.password.value,
+        };
+        return swal({
+            title: "Emin misin?",
+            text: "email ve şifreyi onaylıyor musun!",
+            icon: "warning",
+            buttons: ["Hayır!", "Evet!"],
+        })
+            .then(async (value) => {
+                if (value) {
+                    await this.props.addHobby(loginValue);
+                    if (this.props.loginUserResult.code === 200) {
+                        alert("kayıt ekleme işi başarılı");
+                    } else {
+                        alert(" Üzgünüm, oturum açılamadı!!!");
+                    }
+                }
+            });
 
-            window.location.href = "/panel";
-        } else {
-            alert("oturum açılamadı");
-
-        }
     }
+
+
+    // login = async (e, state) => {
+    //     await this.props.login(state);
+    //     console.log(e.target.email.value);
+    //     if (this.props.loginUserResult.code === 200) {
+    //         console.log(this.props.loginUserResult);
+    //         await localStorage.setItem("user", JSON.stringify(this.props.loginUserResult.data.person));
+    //         this.props.closeSnackbar(this.state.messageKey);
+    //         alert("oturum açılıyor");
+
+    //         window.location.href = "/panel";
+    //     } else {
+    //         alert("oturum açılamadı");
+
+    //     }
+    // }
 
     render() {
         return (
