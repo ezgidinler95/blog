@@ -18,8 +18,8 @@ class Login extends React.Component {
 
     login = async (e, state) => {
         const loginValue = {
-            email: e.target.email.value,
-            password: e.target.password.value,
+            // email: e.target.email.value,
+            // password: e.target.password.value,
         };
         return swal({
             title: "Emin misin?",
@@ -29,7 +29,7 @@ class Login extends React.Component {
         })
             .then(async (value) => {
                 if (value) {
-                    await this.props.addHobby(loginValue);
+                    await this.props.login(loginValue);
                     if (this.props.loginUserResult.code === 200) {
                         alert("kayıt ekleme işi başarılı");
                     } else {
@@ -39,8 +39,6 @@ class Login extends React.Component {
             });
 
     }
-
-
     // login = async (e, state) => {
     //     await this.props.login(state);
     //     console.log(e.target.email.value);

@@ -5,6 +5,8 @@ import { getAllHobby} from '../../../actions/hobby';
 import '../../../styles/assets/css/font-awesome.css';
 //import '../../../styles/assets/css/jquary.fancybox.css';
 import '../../../styles/blog.css';
+import { addOpinion , getAllOpinions } from '../../../actions/opinion';
+import swal from 'sweetalert';
 
 
 class Layout extends Component {
@@ -12,10 +14,35 @@ class Layout extends Component {
     async UNSAFE_componentWillMount() {
       await this.props.getAllGeneralInformation();
       await this.props.getAllHobby();
+      await this.props.getAllOpinions();
     };
 
+
+    handleAddOpinionSubmit = async (e, state) => {
+      const opinion = {
+          name: e.target.name.value,
+          opinion: e.target.opinion.value,
+      };
+      return swal({
+          title: "Emin misin?",
+          text: "Yeni bir içerik ekliceksin!",
+          icon: "warning",
+          buttons: ["Hayır!", "Evet!"],
+      })
+          .then(async (value) => {
+              if (value) {
+                  await this.props.addOpinion(opinion);
+                  if (this.props.addOpinionResult.code === 200) {
+                      alert("kayıt ekleme işi başarılı");
+                  } else {
+                      alert(" Üzgünüm, kayıt ekleme işi başarısız!!!");
+                  }
+              }
+          });
+  }
+
+
     render() {
-      console.log(this.props.hobbies ,  "burda");
       return (
         <div className="App" >
           <div>
@@ -152,19 +179,19 @@ class Layout extends Component {
                      }
                 </li>
                 <li>
-                        <p>en sevdiğim spor müzik türü:</p>
+                        <p>en sevdiğim müzik türü:</p>
                         {
                        this.props.hobbies.map(hobby => hobby.müzik)
                      }
                 </li>
                 <li>
-                        <p>en sevdiğim spor dans:</p>
+                        <p>en sevdiğim  dans:</p>
                         {
                        this.props.hobbies.map(hobby => hobby.dans)
                      }
                 </li>
                 <li>
-                        <p>en sevdiğim spor kitap:</p>
+                        <p>en sevdiğim  kitap:</p>
                         {
                        this.props.hobbies.map(hobby => hobby.kitap)
                      }
@@ -187,7 +214,7 @@ class Layout extends Component {
               </section>
               <section id="RFB" className="hentry">
                 <header className="entry-header">
-                  <h2 className="entry-title">Requirements For sorbroix</h2>
+                  <h2 className="entry-title">Kısa kısa maceralar</h2>
                 </header>
                 <article className="entry-content">
                   <p>
@@ -866,17 +893,12 @@ class Layout extends Component {
               </section>
               <section id="onepage_builder" className="hentry">
                 <header className="entry-header">
-                  <h2 className="entry-title">
-                    How to use Visual Compusor to create the Home page
-          </h2>
+                  <h2 className="entry-title">Günün Konusu </h2>
                 </header>
                 <article className="entry-content">
                   <div className="column-half">
                     <h1 className="entry-title">
-                      Please <strong>DON'T UPDATE PLUGINS</strong>. If there are any
-                      updates yet We will update the theme on ThemeForest and You will
-                      download again Theme.Thanks.
-            </h1>
+                      Tarihte bugün </h1>
                     <h3>
                       View sorbroix Video How to use Visual Compusor to create the Home
                       page
@@ -1222,78 +1244,44 @@ class Layout extends Component {
               </section>
               <section id="extra" className="hentry">
                 <header className="entry-header">
-                  <h2 className="entry-title">Make your site run faster</h2>
+                  <h2 className="entry-title">Görüş ve Önerileriniz</h2>
                 </header>
                 <article className="entry-content">
-                  <p>
-                    Get a good hosting You may not think that this is important, but if
-                    you want your site to display really fast you need to get a good
-                    hosting. This is the first step in having a fast site, which also
-                    translates into more views, which also translates into a better SEO,
-                    which finally translates into more sales. (affiliate links below)
-                    There are three hosting companies which i recommend:
-          </p>
-                  <div className="shortcode-list">
-                    <ul>
-                      <li>
-                        Media Temple:{" "}
-                        <a href="http://mediatemple.net" target="_blank">
-                          http://mediatemple.net
-                </a>{" "}
-                        - if you want a premium WordPress hosting which is easy to manage
-                        and works pretty well, this is a good choice to host your website
-                        on.
-              </li>
-                      <li>
-                        A Small Orange:{" "}
-                        <a href="http://asmallorange.com" target="_blank">
-                          http://asmallorange.com
-                </a>{" "}
-                        - this is another good hosting company, which i’m currently using
-                        to host my theme demos on. If you bought this theme you probably
-                        liked the speed as well, so i highly recommend ASO to host your
-                        themes on (especially the Cloud VPS option).
-              </li>
-                      <li>
-                        WPEngine:{" "}
-                        <a href="http://wpengine.com" target="_blank">
-                          http://wpengine.com
-                </a>{" "}
-                        - definitely not as cheap as the two examples above, but if you
-                        really want an incredibly fast website and absolutely no headaches
-                        in managing it, WPEngine is the way to go. With it you don’t have
-                        to worry about security, caching, updates, etc. Everything is
-                        handled by a great theme of professionals ready to help you with
-                        everything. You just need to care about your content.
-              </li>
-                    </ul>
-                  </div>
-                  <br />
-                  <h3 style={{ paddingBottom: 5 }}>Optimize images</h3>
-                  <p>
-                    Always optimize/compress your jpeg images before uploading them to the
-                    server. Large images should be compressed at around 90% image quality
-                    and you should also try to limit the use of lossless image files
-                    (uncompressed pngs).
-          </p>
-                  <br />
-                  <h3 style={{ paddingBottom: 5 }}>Use a caching plugin</h3>
-                  <p>
-                    I can’t recommend enough the necessitiy go good caching. If you use a
-                    managed hosting such as WPEngine you don’t need this. But if you are
-                    using ASO or MT or any other hosting you need to cache your content.
-                    For this purpose, i recommend W3 Total Cache! It’s a great and easy to
-                    use plugin, and with only a bit of work you can double your site’s
-                    speed. See this ticket for more info on how to configure this plugin:
-            <a
-                      href="http://rubenbristian.ticksy.com/ticket/119133"
-                      target="_blank"
-                    >
-                      http://rubenbristian.ticksy.com/ticket/119133
-            </a>
-                  </p>
-                  <div className="clear" />
+                <div className="column-half">
+                <form onSubmit={(e) => { e.preventDefault(); this.handleAddOpinionSubmit(e, this.state) }}>
+                 <label style={{ fontWeight:"bold" , fontSize:"15px"}}>Adınız:</label>
+                 <br></br>
+                 <br></br>
+                 <input name="name" id="name" style={{ width:"500px", height:"30px" }} ></input>
+                 <br></br>
+                 <br></br>
+                 <label style={{ fontWeight:"bold" , fontSize:"15px"}}>Görüşleriniz:</label>
+                 <br></br>
+                 <br></br>
+                 <input name="opinion" id="opinion" style={{ width:"500px", height:"80px" }} ></input>
+                 <br></br>
+                 <br></br>
+                 <button style={{ width:"500px",  backgroundColor:"#30ADE8"}}>KAYDET</button>
+                 </form>
+                 </div>
+                 <div className="column-half column-half-last">
+                 <label style={{ fontWeight:"bold" , fontSize:"15px"}}>Yorum yapanlar:</label>
+                 <br></br>
+                 {
+                   this.props.opinions.map(opinion => opinion.name)
+                  }
+                   <br></br>
+                 <br></br>
+                   <label style={{ fontWeight:"bold" , fontSize:"15px"}}>Yapılan yorumlar:</label>
+                   <br></br>
+                   {
+                   this.props.opinions.map(opinion => opinion.opinion)
+                  }
+                 </div>
+                
+                <div className="clear" />
                 </article>
+               
               </section>
             </div>
           </div>;
@@ -1302,16 +1290,19 @@ class Layout extends Component {
     }
   }
   
-  const mapStateToProps = ({ generalInformationReducer , hobbyReducer}) => {
+  const mapStateToProps = ({ generalInformationReducer , hobbyReducer , opinionReducer}) => {
     return {
       ...generalInformationReducer,
       ...hobbyReducer,
+      ...opinionReducer,
     }
   }
   
   const mapDispatchToProps = {
     getAllGeneralInformation,
-    getAllHobby
+    getAllHobby,
+    addOpinion,
+    getAllOpinions
   }
   
   export default connect(mapStateToProps, mapDispatchToProps)((Layout));

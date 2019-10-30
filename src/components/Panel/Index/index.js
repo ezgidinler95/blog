@@ -60,7 +60,6 @@ class Layout extends Component {
                     }
                 }
             });
-
     }
 
     render() {
