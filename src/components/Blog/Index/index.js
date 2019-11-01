@@ -155,7 +155,7 @@ class Layout extends Component {
             </div>
             <div className="container">
               <section id="more" className="Top_doc hentry">
-                <h1 className="doc-title">Kim Bu Ezgi :) </h1>
+                <h1 className="doc-title"> {this.props.generalInformations.map(generalInformation => generalInformation.baslik)} </h1>
                 <article className="doc-content">
                   {
                    this.props.generalInformations.map(generalInformation => generalInformation.genelBilgi)
@@ -164,7 +164,7 @@ class Layout extends Component {
               </section>
               <section id="wp-info" className="hentry">
                 <header className="entry-header">
-                  <h2 className="entry-title">Hobiler</h2>
+                  <h2 className="entry-title">{ this.props.hobbies.map(hobby => hobby.baslik)}</h2>
                 </header>
                 <article className="entry-content">
                 <h2>Bu ayın enleri :D :D </h2> 
@@ -214,47 +214,13 @@ class Layout extends Component {
               </section>
               <section id="RFB" className="hentry">
                 <header className="entry-header">
-                  <h2 className="entry-title">Kısa kısa maceralar</h2>
+                  <h2 className="entry-title"> {this.props.generalInformations.map(generalInformation => generalInformation.oneriBaslik)}</h2>
                 </header>
                 <article className="entry-content">
-                  <p>
-                    To use sorbroix, you must be running WordPress 3.1 or higher, PHP5 or
-                    higher, and mysql 5 or higher. We have tested it with Mac, Windows and
-                    Linux. Below are a list of items you should ensure your host can
-                    comply with.
-          </p>
-                  <div className="column-half">
-                    <div className="shortcode-list">
-                      <ul>
-                        <li>
-                          Check to ensure that your web host has the minimum requirements
-                          to run WordPress.
-                </li>
-                        <li>
-                          Always make sure they are running the latest version of
-                          WordPress
-                </li>
-                        <li>
-                          You can download the latest release of WordPress from official{" "}
-                          <a href="http://wordpress.org.">WordPress</a> website{" "}
-                        </li>
-                        <li>Always create secure passwords FTP and Database</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="column-half column-half-last">
-                    <div className="bean-note">
-                      Hosting is sorbroix secure when PHP applications, like WordPress,
-                      are run using your account’s username instead of the server’s
-                      default shared username (www or www-data). The most common way for
-                      hosting companies to do this is using suPHP. Just ask your potential
-              host if they run suPHP or something similar. <br /> <br />
-                      We recommend using WpEngine.com or{" "}
-                      <a href="http://asmallorange.com">A Small Orange</a> for all your
-                      hosting needs.
-            </div>
-                  </div>
-                  <div className="clear" />
+             
+                 
+             {this.props.generalInformations.map(generalInformation => generalInformation.oneriler)}
+                 
                 </article>
               </section>
               <section id="Included" className="hentry">

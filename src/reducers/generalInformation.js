@@ -1,11 +1,13 @@
 import {
     ADD_GENERAL_INFORMATION_PENDING, ADD_GENERAL_INFORMATION_FULFILLED, ADD_GENERAL_INFORMATION_REJECTED,
-    ALL_GENERAL_INFORMATION_PENDING, ALL_GENERAL_INFORMATION_FULFILLED, ALL_GENERAL_INFORMATION_REJECTED
+    ALL_GENERAL_INFORMATION_PENDING, ALL_GENERAL_INFORMATION_FULFILLED, ALL_GENERAL_INFORMATION_REJECTED,
+    UPDATE_GENERAL_INFORMATION_PENDING, UPDATE_GENERAL_INFORMATION_FULFILLED, UPDATE_GENERAL_INFORMATION_REJECTED
 
 } from '../actions/generalInformation';
 const initialState = {
     generalInformations: [],
     addGeneralInformationResult: {},
+    updateGeneralInformationResult: {},
 }
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -19,6 +21,19 @@ export default (state = initialState, action) => {
                 addGeneralInformationResult: action.payload
             }
         case ADD_GENERAL_INFORMATION_REJECTED:
+            return {
+                ...state,
+            }
+        case UPDATE_GENERAL_INFORMATION_PENDING:
+            return {
+                ...state,
+            }
+        case UPDATE_GENERAL_INFORMATION_FULFILLED:
+            return {
+                ...state,
+                updateGeneralInformationResult: action.payload
+            }
+        case UPDATE_GENERAL_INFORMATION_REJECTED:
             return {
                 ...state,
             }

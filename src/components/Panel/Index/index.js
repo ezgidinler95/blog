@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { addGeneralInformation } from '../../../actions/generalInformation';
-import { addHobby } from '../../../actions/hobby';
+import { addHobby, updateHobby } from '../../../actions/hobby';
 import swal from 'sweetalert';
+import { getAllGeneralInformation, updateGeneralInformation } from '../../../actions/generalInformation';
+import { getAllHobby } from '../../../actions/hobby';
 import '../../../styles/assetsss/css/custom.css';
 import '../../../styles/assetsss/css/concept.min.css';
 //import '../../../styles/assetsss/plugins/custom.css';
@@ -11,11 +13,20 @@ import '../../../styles/assetsss/plugins/font-awesome/css/all.min.css';
 import '../../../styles/assetsss/plugins/icomoon/style.css';
 import '../../../styles/assetsss/plugins/switchery/switchery.min.css';
 
+
 class Layout extends Component {
+
+    async UNSAFE_componentWillMount() {
+        await this.props.getAllGeneralInformation();
+        await this.props.getAllHobby();
+    };
+
 
     handleAddGeneralInformationSubmit = async (e, state) => {
         const generalInformation = {
             genelBilgi: e.target.genelBilgi.value,
+            baslik: e.target.baslik.value,
+
         };
         return swal({
             title: "Emin misin?",
@@ -35,9 +46,63 @@ class Layout extends Component {
             });
     }
 
+    handleUpdateGeneralInformationSubmit = async (e, state) => {
+        const generalInformation = {
+            _id: e.target._id.value,
+            genelBilgi: e.target.genelBilgi.value,
+            baslik: e.target.baslik.value,
+
+        };
+        return swal({
+            title: "Emin misin?",
+            text: "İçeriği güncelleyeceksin!",
+            icon: "warning",
+            buttons: ["Hayır!", "Evet!"],
+        })
+            .then(async (value) => {
+                if (value) {
+                    await this.props.updateGeneralInformation(generalInformation);
+                    if (this.props.updateGeneralInformationResult.code === 200) {
+                        alert("kayıt guncelleme işi başarılı");
+                    } else {
+                        alert(" Üzgünüm, kayıt guncelleme işi başarısız!!!");
+                    }
+                }
+            });
+    }
+
+
+    handleUpdateHobbySubmit = async (e, state) => {
+        const hobby = {
+            _id: e.target._id.value,
+            baslik: e.target.baslik.value,
+            spor: e.target.spor.value,
+            dans: e.target.dans.value,
+            müzik: e.target.müzik.value,
+            kitap: e.target.kitap.value,
+
+        };
+        return swal({
+            title: "Emin misin?",
+            text: "İçeriği güncelleyeceksin!",
+            icon: "warning",
+            buttons: ["Hayır!", "Evet!"],
+        })
+            .then(async (value) => {
+                if (value) {
+                    await this.props.updateHobby(hobby);
+                    if (this.props.updateHobbyResult.code === 200) {
+                        alert("kayıt guncelleme işi başarılı");
+                    } else {
+                        alert(" Üzgünüm, kayıt guncelleme işi başarısız!!!");
+                    }
+                }
+            });
+    }
 
     handleAddHobbySubmit = async (e, state) => {
         const hobby = {
+            baslik: e.target.baslik.value,
             spor: e.target.spor.value,
             dans: e.target.dans.value,
             müzik: e.target.müzik.value,
@@ -62,7 +127,32 @@ class Layout extends Component {
             });
     }
 
+    handleAddOnerilerSubmit = async (e, state) => {
+        const generalInformation = {
+            oneriler: e.target.oneriler.value,
+            oneriBaslik: e.target.oneriBaslik.value,
+        };
+        return swal({
+            title: "Emin misin?",
+            text: "Yeni bir içerik ekliceksin!",
+            icon: "warning",
+            buttons: ["Hayır!", "Evet!"],
+        })
+            .then(async (value) => {
+                if (value) {
+                    await this.props.addGeneralInformation(generalInformation);
+                    if (this.props.addGeneralInformationResult.code === 200) {
+                        alert("kayıt ekleme işi başarılı");
+                    } else {
+                        alert(" Üzgünüm, kayıt ekleme işi başarısız!!!");
+                    }
+                }
+            });
+    }
+
+
     render() {
+        console.log(this.props.generalInformations.map(generalInformation => generalInformation._id), "gelen");
         const { classes } = this.props;
         return (
 
@@ -345,10 +435,13 @@ class Layout extends Component {
                                         <div className="card">
                                             <div className="card-body">
                                                 <h5 className="card-title">GENEL BİLGİ FORMU</h5>
-                                                <form onSubmit={(e) => { e.preventDefault(); this.handleAddGeneralInformationSubmit(e, this.state) }}>
+                                                <form onSubmit={(e) => { e.preventDefault(); this.handleUpdateGeneralInformationSubmit(e, this.state) }}>
                                                     <div className="form-group">
+                                                        <input type="hidden" name="_id" defaultValue={this.props.generalInformations.map(generalInformation => generalInformation._id)} />
+                                                        <label htmlFor="baslik">Başlık</label>
+                                                        <input type="text" className="form-control" name="baslik" id="baslik" defaultValue={this.props.generalInformations.map(generalInformation => generalInformation.baslik)} aria-describedby="emailHelp" placeholder=" baslik" />
                                                         <label htmlFor="genelBilgi">Genel Bilgi</label>
-                                                        <textarea row="80" cols="50" type="text" className="form-control" name="genelBilgi" id="genelBilgi" aria-describedby="emailHelp" placeholder="Genel Bilgi" />
+                                                        <textarea row="80" cols="50" type="text" className="form-control" name="genelBilgi" id="genelBilgi" defaultValue={this.props.generalInformations.map(generalInformation => generalInformation.genelBilgi)} aria-describedby="emailHelp" placeholder="Genel Bilgi" />
                                                     </div>
                                                     <button type="submit" className="btn btn-primary">KAYDET</button>
                                                 </form>
@@ -358,7 +451,7 @@ class Layout extends Component {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div className="page-inner no-page-title">
                             <div id="main-wrapper">
                                 <div className="divider" />
@@ -367,16 +460,46 @@ class Layout extends Component {
                                         <div className="card">
                                             <div className="card-body">
                                                 <h5 className="card-title">HOBİLER </h5>
-                                                <form onSubmit={(e) => { e.preventDefault(); this.handleAddHobbySubmit(e, this.state) }}>
+                                                <form onSubmit={(e) => { e.preventDefault(); this.handleUpdateHobbySubmit(e, this.state) }}>
                                                     <div className="form-group">
+                                                        <input type="hidden" name="_id" defaultValue={this.props.hobbies.map(hobby => hobby._id)} />
+                                                        <label htmlFor="baslik">baslik </label>
+                                                        <input type="text" className="form-control" name="baslik" id="baslik" defaultValue={this.props.hobbies.map(hobby => hobby.baslik)} aria-describedby="emailHelp" placeholder=" baslik" />
                                                         <label htmlFor="spor">En sevdiğiniz spor </label>
-                                                        <input type="text" className="form-control" name="spor" id="spor" aria-describedby="emailHelp" placeholder="Spor" />
+                                                        <input type="text" className="form-control" name="spor" id="spor" defaultValue={this.props.hobbies.map(hobby => hobby.spor)} aria-describedby="emailHelp" placeholder="Spor" />
                                                         <label htmlFor="spor">En sevdiğiniz dans </label>
-                                                        <input type="text" className="form-control" name="dans" id="dans" aria-describedby="emailHelp" placeholder="Dans" />
+                                                        <input type="text" className="form-control" name="dans" id="dans" defaultValue={this.props.hobbies.map(hobby => hobby.dans)} aria-describedby="emailHelp" placeholder="Dans" />
                                                         <label htmlFor="spor">En sevdiğiniz müzik türü  </label>
-                                                        <input type="text" className="form-control" name="müzik" id="müzik" aria-describedby="emailHelp" placeholder="Müzik" />
+                                                        <input type="text" className="form-control" name="müzik" id="müzik" defaultValue={this.props.hobbies.map(hobby => hobby.müzik)} aria-describedby="emailHelp" placeholder="Müzik" />
                                                         <label htmlFor="spor">En sevdiğiniz kitap </label>
-                                                        <input type="text" className="form-control" name="kitap" id="kitap" aria-describedby="emailHelp" placeholder="Kitap " />
+                                                        <input type="text" className="form-control" name="kitap" id="kitap" defaultValue={this.props.hobbies.map(hobby => hobby.kitap)} aria-describedby="emailHelp" placeholder="Kitap " />
+                                                    </div>
+                                                    <button type="submit" className="btn btn-primary">KAYDET</button>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div className="page-inner no-page-title">
+                            <div id="main-wrapper">
+                                <div className="divider" />
+                                <div className="row">
+                                    <div className="col-xl">
+                                        <div className="card">
+                                            <div className="card-body">
+                                                <h5 className="card-title">ÖNERİLER </h5>
+                                                <form onSubmit={(e) => { e.preventDefault(); this.handleAddOnerilerSubmit(e, this.state) }}>
+                                                    <div className="form-group">
+                                                        <label htmlFor="oneriBaslik">Öneri Başlıkları </label>
+                                                        <input type="text" className="form-control" name="oneriBaslik" id="oneriBaslik" aria-describedby="emailHelp" placeholder="oneri Baslik" />
+                                                        <label htmlFor="oneriler">Öneriler </label>
+                                                        <input type="text" className="form-control" name="oneriler" id="oneriler" aria-describedby="emailHelp" placeholder=" öneriler" />
+
                                                     </div>
                                                     <button type="submit" className="btn btn-primary">KAYDET</button>
                                                 </form>
@@ -386,6 +509,7 @@ class Layout extends Component {
                                 </div>
                             </div>
                         </div>
+
                         <div className="page-inner no-page-title">
                             <div className="page-footer">
                                 <p>2019 © EZGİ DİNLER</p>
@@ -527,7 +651,11 @@ const mapStateToProps = ({ generalInformationReducer, hobbyReducer }) => {
 
 const mapDispatchToProps = {
     addGeneralInformation,
-    addHobby
+    addHobby,
+    getAllGeneralInformation,
+    getAllHobby,
+    updateHobby,
+    updateGeneralInformation
 }
 
 
