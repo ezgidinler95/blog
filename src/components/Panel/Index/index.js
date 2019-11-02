@@ -5,6 +5,7 @@ import { addHobby, updateHobby } from '../../../actions/hobby';
 import swal from 'sweetalert';
 import { getAllGeneralInformation, updateGeneralInformation } from '../../../actions/generalInformation';
 import { getAllHobby } from '../../../actions/hobby';
+import { addRecommend, getAllRecommends, updateRecommand } from '../../../actions/recommend';
 import '../../../styles/assetsss/css/custom.css';
 import '../../../styles/assetsss/css/concept.min.css';
 //import '../../../styles/assetsss/plugins/custom.css';
@@ -19,8 +20,8 @@ class Layout extends Component {
     async UNSAFE_componentWillMount() {
         await this.props.getAllGeneralInformation();
         await this.props.getAllHobby();
+        await this.props.getAllRecommends();
     };
-
 
     handleAddGeneralInformationSubmit = async (e, state) => {
         const generalInformation = {
@@ -70,7 +71,6 @@ class Layout extends Component {
                 }
             });
     }
-
 
     handleUpdateHobbySubmit = async (e, state) => {
         const hobby = {
@@ -127,8 +127,8 @@ class Layout extends Component {
             });
     }
 
-    handleAddOnerilerSubmit = async (e, state) => {
-        const generalInformation = {
+    handleAddOnerilenlerSubmit = async (e, state) => {
+        const recommend = {
             oneriler: e.target.oneriler.value,
             oneriBaslik: e.target.oneriBaslik.value,
         };
@@ -138,10 +138,11 @@ class Layout extends Component {
             icon: "warning",
             buttons: ["Hayır!", "Evet!"],
         })
+
             .then(async (value) => {
                 if (value) {
-                    await this.props.addGeneralInformation(generalInformation);
-                    if (this.props.addGeneralInformationResult.code === 200) {
+                    await this.props.addRecommend(recommend);
+                    if (this.props.addRecommendResult.code === 200) {
                         alert("kayıt ekleme işi başarılı");
                     } else {
                         alert(" Üzgünüm, kayıt ekleme işi başarısız!!!");
@@ -150,12 +151,34 @@ class Layout extends Component {
             });
     }
 
+    handleUpdateRecommandSubmit = async (e, state) => {
+        const recomannd = {
+            _id: e.target._id.value,
+            oneriler: e.target.oneriler.value,
+            oneriBaslik: e.target.oneriBaslik.value,
+
+        };
+        return swal({
+            title: "Emin misin?",
+            text: "İçeriği güncelleyeceksin!",
+            icon: "warning",
+            buttons: ["Hayır!", "Evet!"],
+        })
+            .then(async (value) => {
+                if (value) {
+                    await this.props.updateRecommand(recomannd);
+                    if (this.props.updateRecommandResult.code === 200) {
+                        alert("kayıt guncelleme işi başarılı");
+                    } else {
+                        alert(" Üzgünüm, kayıt guncelleme işi başarısız!!!");
+                    }
+                }
+            });
+    }
 
     render() {
-        console.log(this.props.generalInformations.map(generalInformation => generalInformation._id), "gelen");
         const { classes } = this.props;
         return (
-
             <div className="Layout" >
                 <div className="page-container">
                     {/* Page Sidebar */}
@@ -493,13 +516,13 @@ class Layout extends Component {
                                         <div className="card">
                                             <div className="card-body">
                                                 <h5 className="card-title">ÖNERİLER </h5>
-                                                <form onSubmit={(e) => { e.preventDefault(); this.handleAddOnerilerSubmit(e, this.state) }}>
+                                                <form onSubmit={(e) => { e.preventDefault(); this.handleAddOnerilenlerSubmit(e, this.state) }}>
                                                     <div className="form-group">
+                                                        <input type="hidden" name="_id" defaultValue={this.props.recommends.map(recommend => recommend._id)} />
                                                         <label htmlFor="oneriBaslik">Öneri Başlıkları </label>
-                                                        <input type="text" className="form-control" name="oneriBaslik" id="oneriBaslik" aria-describedby="emailHelp" placeholder="oneri Baslik" />
+                                                        <input type="text" className="form-control" name="oneriBaslik" id="oneriBaslik" defaultValue={this.props.recommends.map(recommend => recommend.oneriBaslik)} aria-describedby="emailHelp" placeholder="oneri Baslik" />
                                                         <label htmlFor="oneriler">Öneriler </label>
-                                                        <input type="text" className="form-control" name="oneriler" id="oneriler" aria-describedby="emailHelp" placeholder=" öneriler" />
-
+                                                        <input type="text" className="form-control" name="oneriler" id="oneriler" defaultValue={this.props.recommends.map(recommend => recommend.oneriler)} aria-describedby="emailHelp" placeholder=" öneriler" />
                                                     </div>
                                                     <button type="submit" className="btn btn-primary">KAYDET</button>
                                                 </form>
@@ -641,10 +664,11 @@ class Layout extends Component {
     }
 }
 
-const mapStateToProps = ({ generalInformationReducer, hobbyReducer }) => {
+const mapStateToProps = ({ generalInformationReducer, hobbyReducer, recommendReducer }) => {
     return {
         ...generalInformationReducer,
         ...hobbyReducer,
+        ...recommendReducer
 
     }
 }
@@ -655,7 +679,10 @@ const mapDispatchToProps = {
     getAllGeneralInformation,
     getAllHobby,
     updateHobby,
-    updateGeneralInformation
+    updateGeneralInformation,
+    addRecommend,
+    getAllRecommends,
+    updateRecommand
 }
 
 

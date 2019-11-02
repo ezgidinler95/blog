@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import {getAllGeneralInformation} from '../../../actions/generalInformation';
 import { getAllHobby} from '../../../actions/hobby';
+import{ getAllRecommends } from '../../../actions/recommend';
 import '../../../styles/assets/css/font-awesome.css';
 //import '../../../styles/assets/css/jquary.fancybox.css';
 import '../../../styles/blog.css';
@@ -13,6 +14,7 @@ class Layout extends Component {
 
     async UNSAFE_componentWillMount() {
       await this.props.getAllGeneralInformation();
+      await this.props.getAllRecommends();
       await this.props.getAllHobby();
       await this.props.getAllOpinions();
     };
@@ -40,8 +42,7 @@ class Layout extends Component {
               }
           });
   }
-
-
+  
     render() {
       return (
         <div className="App" >
@@ -1256,11 +1257,12 @@ class Layout extends Component {
     }
   }
   
-  const mapStateToProps = ({ generalInformationReducer , hobbyReducer , opinionReducer}) => {
+  const mapStateToProps = ({ generalInformationReducer , hobbyReducer , opinionReducer , recommendReducer}) => {
     return {
       ...generalInformationReducer,
       ...hobbyReducer,
       ...opinionReducer,
+      ...recommendReducer,
     }
   }
   
@@ -1268,7 +1270,8 @@ class Layout extends Component {
     getAllGeneralInformation,
     getAllHobby,
     addOpinion,
-    getAllOpinions
+    getAllOpinions,
+    getAllRecommends
   }
   
   export default connect(mapStateToProps, mapDispatchToProps)((Layout));
