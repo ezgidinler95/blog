@@ -18,7 +18,7 @@ export function addHobby(hobby) {
     return async dispatch => {
         await dispatch({
             type: "ADD_HOBBY",
-            payload: axios.post(`${API_URL}/hobby`, hobby)
+            payload: axios.post(`${API_URL}/hobby`, hobby, { headers: { 'content-type': 'multipart/form-data' } })
                 .then(result => result.data)
         })
     }

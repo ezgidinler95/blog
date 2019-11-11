@@ -5,7 +5,8 @@ import { addHobby, updateHobby } from '../../../actions/hobby';
 import swal from 'sweetalert';
 import { getAllGeneralInformation, updateGeneralInformation } from '../../../actions/generalInformation';
 import { getAllHobby } from '../../../actions/hobby';
-import { addRecommend, getAllRecommends, updateRecommand } from '../../../actions/recommend';
+import { addAgenda, getAllAgenda, updateAgenda } from '../../../actions/agenda';
+import { FormControl, InputLabel, } from "@material-ui/core";
 import '../../../styles/assetsss/css/custom.css';
 import '../../../styles/assetsss/css/concept.min.css';
 //import '../../../styles/assetsss/plugins/custom.css';
@@ -17,10 +18,14 @@ import '../../../styles/assetsss/plugins/switchery/switchery.min.css';
 
 class Layout extends Component {
 
+    state = {
+        image: null,
+    };
+
     async UNSAFE_componentWillMount() {
         await this.props.getAllGeneralInformation();
         await this.props.getAllHobby();
-        await this.props.getAllRecommends();
+        await this.props.getAllAgenda();
     };
 
     handleAddGeneralInformationSubmit = async (e, state) => {
@@ -47,6 +52,53 @@ class Layout extends Component {
             });
     }
 
+    handleAddAgendaSubmit = async (e, state) => {
+        const agenda = {
+            baslik: e.target.baslik.value,
+            haberler: e.target.haberler.value,
+
+        };
+        return swal({
+            title: "Emin misin?",
+            text: "Yeni bir içerik ekliceksin!",
+            icon: "warning",
+            buttons: ["Hayır!", "Evet!"],
+        })
+            .then(async (value) => {
+                if (value) {
+                    await this.props.addAgenda(agenda);
+                    if (this.props.addAgendaResult.code === 200) {
+                        alert("kayıt ekleme işi başarılı");
+                    } else {
+                        alert(" Üzgünüm, kayıt ekleme işi başarısız!!!");
+                    }
+                }
+            });
+    }
+    handleUpdateAgendaSubmit = async (e, state) => {
+        const agenda = {
+            _id: e.target._id.value,
+            baslik: e.target.baslik.value,
+            haberler: e.target.haberler.value,
+
+        };
+        return swal({
+            title: "Emin misin?",
+            text: "İçeriği güncelleyeceksin!",
+            icon: "warning",
+            buttons: ["Hayır!", "Evet!"],
+        })
+            .then(async (value) => {
+                if (value) {
+                    await this.props.updateAgenda(agenda);
+                    if (this.props.updateAgendaResult.code === 200) {
+                        alert("kayıt guncelleme işi başarılı");
+                    } else {
+                        alert(" Üzgünüm, kayıt guncelleme işi başarısız!!!");
+                    }
+                }
+            });
+    }
     handleUpdateGeneralInformationSubmit = async (e, state) => {
         const generalInformation = {
             _id: e.target._id.value,
@@ -101,14 +153,22 @@ class Layout extends Component {
     }
 
     handleAddHobbySubmit = async (e, state) => {
-        const hobby = {
-            baslik: e.target.baslik.value,
-            spor: e.target.spor.value,
-            dans: e.target.dans.value,
-            müzik: e.target.müzik.value,
-            kitap: e.target.kitap.value,
 
-        };
+        let hobby = new FormData();
+        hobby.append('baslik', e.target.baslik.value);
+        hobby.append('spor', e.target.spor.value);
+        hobby.append('dans', e.target.dans.value);
+        hobby.append('müzik', e.target.müzik.value);
+        hobby.append('kitap', e.target.kitap.value);
+
+        if (state.image) {
+            if (state.image.length > 0) {
+                for (var i = 0; i < state.image.length; i++) {
+                    hobby.append('image', state.image[i]);
+                }
+            }
+        }
+
         return swal({
             title: "Emin misin?",
             text: "Yeni bir içerik ekliceksin!",
@@ -174,6 +234,29 @@ class Layout extends Component {
                     }
                 }
             });
+    }
+
+    onChangeHandlerFiles = async event => {
+        if (event.target.files.length > 0) {
+            const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+            if (acceptedImageTypes.includes(event.target.files[0].type)) {
+                await this.setState({
+                    [event.target.name]: event.target.files,
+                });
+            } else {
+                this.errorMessage();
+            }
+        }
+    }
+
+    errorMessage = () => {
+        return this.props.enqueueSnackbar('Lütfen bir resim dosyası yükleyin.', {
+            variant: "error",
+            persist: true,
+            action: (
+                <div style={{ color: "#000", fontSize: "13px", cursor: "pointer", fontWeight: "500" }} onClick={() => this.props.closeSnackbar()}>KAPAT</div>
+            ),
+        });
     }
 
     render() {
@@ -483,7 +566,7 @@ class Layout extends Component {
                                         <div className="card">
                                             <div className="card-body">
                                                 <h5 className="card-title">HOBİLER </h5>
-                                                <form onSubmit={(e) => { e.preventDefault(); this.handleUpdateHobbySubmit(e, this.state) }}>
+                                                <form encType="multipart/form-data" onSubmit={(e) => { e.preventDefault(); this.handleUpdateHobbySubmit(e, this.state) }}>
                                                     <div className="form-group">
                                                         <input type="hidden" name="_id" defaultValue={this.props.hobbies.map(hobby => hobby._id)} />
                                                         <label htmlFor="baslik">baslik </label>
@@ -496,6 +579,16 @@ class Layout extends Component {
                                                         <input type="text" className="form-control" name="müzik" id="müzik" defaultValue={this.props.hobbies.map(hobby => hobby.müzik)} aria-describedby="emailHelp" placeholder="Müzik" />
                                                         <label htmlFor="spor">En sevdiğiniz kitap </label>
                                                         <input type="text" className="form-control" name="kitap" id="kitap" defaultValue={this.props.hobbies.map(hobby => hobby.kitap)} aria-describedby="emailHelp" placeholder="Kitap " />
+                                                        <FormControl fullWidth style={{ margin: "35px", padding: "35px", color: "black", fontSize: "10px" }}>
+                                                            <InputLabel htmlFor="blockListExcel">GÖRSELİ YÜKLEYİNİZ</InputLabel>
+                                                            <br />
+                                                            <br />
+                                                            <input
+                                                                type="file"
+                                                                name="image"
+                                                                onChange={this.onChangeHandlerFiles}
+                                                            />
+                                                        </FormControl>
                                                     </div>
                                                     <button type="submit" className="btn btn-primary">KAYDET</button>
                                                 </form>
@@ -507,7 +600,6 @@ class Layout extends Component {
                             </div>
                         </div>
 
-
                         <div className="page-inner no-page-title">
                             <div id="main-wrapper">
                                 <div className="divider" />
@@ -515,14 +607,14 @@ class Layout extends Component {
                                     <div className="col-xl">
                                         <div className="card">
                                             <div className="card-body">
-                                                <h5 className="card-title">ÖNERİLER </h5>
-                                                <form onSubmit={(e) => { e.preventDefault(); this.handleAddOnerilenlerSubmit(e, this.state) }}>
+                                                <h5 className="card-title">GÜNDEM </h5>
+                                                <form onSubmit={(e) => { e.preventDefault(); this.handleUpdateAgendaSubmit(e, this.state) }}>
                                                     <div className="form-group">
-                                                        <input type="hidden" name="_id" defaultValue={this.props.recommends.map(recommend => recommend._id)} />
-                                                        <label htmlFor="oneriBaslik">Öneri Başlıkları </label>
-                                                        <input type="text" className="form-control" name="oneriBaslik" id="oneriBaslik" defaultValue={this.props.recommends.map(recommend => recommend.oneriBaslik)} aria-describedby="emailHelp" placeholder="oneri Baslik" />
-                                                        <label htmlFor="oneriler">Öneriler </label>
-                                                        <input type="text" className="form-control" name="oneriler" id="oneriler" defaultValue={this.props.recommends.map(recommend => recommend.oneriler)} aria-describedby="emailHelp" placeholder=" öneriler" />
+                                                        <input type="hidden" name="_id" defaultValue={this.props.agendas.map(agenda => agenda._id)} />
+                                                        <label htmlFor="baslik">Baslik </label>
+                                                        <input type="text" className="form-control" name="baslik" id="baslik" defaultValue={this.props.agendas.map(agenda => agenda.baslik)} placeholder="Baslik" />
+                                                        <label htmlFor="haberler">Haberler </label>
+                                                        <textarea row="80" cols="50" type="text" className="form-control" name="haberler" id="haberler" defaultValue={this.props.agendas.map(agenda => agenda.haberler)} aria-describedby="emailHelp" placeholder=" haberler" />
                                                     </div>
                                                     <button type="submit" className="btn btn-primary">KAYDET</button>
                                                 </form>
@@ -664,11 +756,11 @@ class Layout extends Component {
     }
 }
 
-const mapStateToProps = ({ generalInformationReducer, hobbyReducer, recommendReducer }) => {
+const mapStateToProps = ({ generalInformationReducer, hobbyReducer, agendaReducer }) => {
     return {
         ...generalInformationReducer,
         ...hobbyReducer,
-        ...recommendReducer
+        ...agendaReducer
 
     }
 }
@@ -680,9 +772,9 @@ const mapDispatchToProps = {
     getAllHobby,
     updateHobby,
     updateGeneralInformation,
-    addRecommend,
-    getAllRecommends,
-    updateRecommand
+    addAgenda,
+    getAllAgenda,
+    updateAgenda
 }
 
 

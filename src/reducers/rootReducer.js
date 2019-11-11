@@ -5,12 +5,13 @@ import userReducer from './user';
 import generalInformationReducer from './generalInformation';
 import hobbyReducer from './hobby';
 import opinionReducer from './opinion';
-import recommendReducer from './recommend';
+
+import agendaReducer from './agenda';
 
 export default combineReducers({
     userReducer,
     generalInformationReducer,
     hobbyReducer,
     opinionReducer,
-    recommendReducer,
+    agendaReducer,
 });
