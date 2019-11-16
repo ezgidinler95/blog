@@ -1,17 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 // material components
-import { Avatar, Button, CssBaseline, } from "@material-ui/core";
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 import withStyles from "@material-ui/core/styles/withStyles";
+import style from '../../../styles/style.css';
 
 class LoginForm extends React.Component {
 
     state = {
+        email: '',
+        password: '',
+        errors: {},
+        messageKey: ''
     }
 
     handleChange = (e) => {
@@ -22,69 +21,51 @@ class LoginForm extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <main className={classes.main}>
+            <div className="parent">
+                <div className="inner">
+                    <form  onSubmit={(e) => { e.preventDefault(); this.props.onSubmit(this.state) }}>
+                        <h1> Giriş Yap </h1>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            onChange={this.handleChange}
+                            autoComplete="off"
+                            placeholder="    Username or Email"
+                            style={{ fontFamily: "Arial, FontAwesome" }}
+                        />
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            onChange={this.handleChange}
+                            autoComplete="off"
+                            placeholder="    Password"
+                            style={{ fontFamily: "Arial, FontAwesome" }}
+                        />
+                        <button
+                            type="submit"
+                            onClick={this.props.login}
+                            fullWidth
+                        >
+                            Oturum Aç
+                        </button>
 
-                <Container component="main" maxWidth="xs">
-                    <CssBaseline />
-                    <div className={classes.paper}>
-
-                        <Typography component="h1" variant="h5">
-                            HOŞ GELDİN :)
-                           </Typography>
-                        <form className={classes.form} onSubmit={(e) => { e.preventDefault(); this.props.onSubmit(this.state) }}>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Adresiniz"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
-                            />
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Şifreniz"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                            />
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                onClick={this.props.login}
-                                className={classes.submit}
-                            >
-                                Giriş Yap
-                              </Button>
-                            <Grid container>
-                                <Grid item xs>
-                                    <Link href="#" variant="body2">
-                                        Forgot password?
-                                  </Link>
-                                </Grid>
-                                <Grid item>
-                                    <Link href="#" variant="body2">
-                                        {"Don't have an account? Sign Up"}
-                                    </Link>
-                                </Grid>
-                            </Grid>
-                        </form>
-                    </div>
-
-                </Container>
-            </main >
+                    </form>
+                    <br />
+                    <br />
+                    <a href className="link">
+                        Need Help?
+                     </a>
+                </div>
+            </div>
         );
     }
 }
 
-
+LoginForm.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
 
 export default withStyles()(LoginForm);
+

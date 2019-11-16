@@ -6,7 +6,7 @@ import swal from 'sweetalert';
 import { getAllGeneralInformation, updateGeneralInformation } from '../../../actions/generalInformation';
 import { getAllHobby } from '../../../actions/hobby';
 import { addAgenda, getAllAgenda, updateAgenda } from '../../../actions/agenda';
-import { FormControl, InputLabel, } from "@material-ui/core";
+import { FormControl, InputLabel, Link, } from "@material-ui/core";
 import '../../../styles/assetsss/css/custom.css';
 import '../../../styles/assetsss/css/concept.min.css';
 //import '../../../styles/assetsss/plugins/custom.css';
@@ -533,7 +533,7 @@ class Layout extends Component {
                         </div>{/* /Page Header */}
                         {/* Page Inner */}
 
-                        <div className="page-inner no-page-title">
+                        {/* <div className="page-inner no-page-title">
                             <div id="main-wrapper">
                                 <div className="divider" />
                                 <div className="row">
@@ -556,7 +556,9 @@ class Layout extends Component {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
+
+                        <div>  <Link style={{ backgroundColor: "pink", border: "1px solid blue" }} >GENEL BİLGİLERİ GÜNCELLE</Link></div>
 
                         <div className="page-inner no-page-title">
                             <div id="main-wrapper">
