@@ -533,32 +533,8 @@ class Layout extends Component {
                         </div>{/* /Page Header */}
                         {/* Page Inner */}
 
-                        {/* <div className="page-inner no-page-title">
-                            <div id="main-wrapper">
-                                <div className="divider" />
-                                <div className="row">
-                                    <div className="col-xl">
-                                        <div className="card">
-                                            <div className="card-body">
-                                                <h5 className="card-title">GENEL BİLGİ FORMU</h5>
-                                                <form onSubmit={(e) => { e.preventDefault(); this.handleUpdateGeneralInformationSubmit(e, this.state) }}>
-                                                    <div className="form-group">
-                                                        <input type="hidden" name="_id" defaultValue={this.props.generalInformations.map(generalInformation => generalInformation._id)} />
-                                                        <label htmlFor="baslik">Başlık</label>
-                                                        <input type="text" className="form-control" name="baslik" id="baslik" defaultValue={this.props.generalInformations.map(generalInformation => generalInformation.baslik)} aria-describedby="emailHelp" placeholder=" baslik" />
-                                                        <label htmlFor="genelBilgi">Genel Bilgi</label>
-                                                        <textarea row="80" cols="50" type="text" className="form-control" name="genelBilgi" id="genelBilgi" defaultValue={this.props.generalInformations.map(generalInformation => generalInformation.genelBilgi)} aria-describedby="emailHelp" placeholder="Genel Bilgi" />
-                                                    </div>
-                                                    <button type="submit" className="btn btn-primary">KAYDET</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
 
-                        <div>  <Link style={{ backgroundColor: "pink", border: "1px solid blue" }} >GENEL BİLGİLERİ GÜNCELLE</Link></div>
+                        <div>  <Link rel="stylesheet" href="/panel-genel-bilgiler" style={{ backgroundColor: "pink", border: "1px solid blue", marginLeft: "200px" }} >GENEL BİLGİLERİ GÜNCELLE</Link></div>
 
                         <div className="page-inner no-page-title">
                             <div id="main-wrapper">

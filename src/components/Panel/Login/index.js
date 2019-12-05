@@ -24,7 +24,7 @@ class Login extends React.Component {
         await this.props.login(state);
         if (this.props.loginUserResult.code === 200) {
             await localStorage.setItem("user", JSON.stringify(this.props.loginUserResult.data.user));
-            window.location.href = "/";
+            window.location.href = "/panel";
 
         } else {
             alert("Oturum açılamadı, Bilgilerinizi kontrol ediniz.");

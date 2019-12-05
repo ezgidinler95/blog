@@ -153,6 +153,7 @@ class Layout extends Component {
                     </li>
                   </ul>
                 </li>
+
               </ul>
             </div>
           </div>
@@ -537,6 +538,10 @@ class Layout extends Component {
                     this.props.opinions.map(opinion => opinion.opinion)
                   }
                 </div>
+
+                <li>
+                  <a href="/login"> <b>BLOGU GÜNCELLE</b> </a>
+                </li>
 
                 <div className="clear" />
               </article>
