@@ -1,7 +1,7 @@
 body, html {
     margin: 0;
     font-family: Monospace, Arial, Helvetica, sans-serif;
-    background: #ddd; 
+    background:white; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -147,7 +147,25 @@ body, html {
     text-decoration: none;
     text-decoration: underline;
   }
-  
-  
+  .tarih{
+    color:#378fd6;
+  text-align: right;
+  margin-top: 5px;
+  }
+  .baslik{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  .sosyal{
+    font-size: 18px;
+  }
+  .basliklinkleri{
+    color: black;
+  }
+  .adim{
+    font-size: 60px;
+  }
   
   

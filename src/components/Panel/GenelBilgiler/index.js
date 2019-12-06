@@ -66,7 +66,7 @@ class GenelBilgiler extends React.Component {
 
     render() {
         return (
-            <GenelBilgilerForm  {...this.props} />
+            <GenelBilgilerForm  {...this.props} onSubmit={this.handleUpdateGeneralInformationSubmit} onSubmitAdd={this.handleAddGeneralInformationSubmit} />
         );
 
     }
