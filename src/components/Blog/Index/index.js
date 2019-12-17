@@ -8,9 +8,7 @@ import '../../../styles/assets/css/font-awesome.css';
 import '../../../styles/blog.css';
 import { addOpinion, getAllOpinions } from '../../../actions/opinion';
 import swal from 'sweetalert';
-import FsLightbox from 'fslightbox-react';
-import { API_HOBBY_IMAGE_URL } from '../../../config/config';
-
+//import { API_HOBBY_IMAGE_URL } from '../../../config/config';
 
 class Layout extends Component {
 
@@ -43,12 +41,10 @@ class Layout extends Component {
         }
       });
   }
-
   render() {
     return (
       <div className="App" >
         <div>
-
           <div className="container">
             <section id="more" className="Top_doc hentry">
               <h1 className="doc-title adim"> Ezgi Dinler <br></br>
@@ -56,40 +52,27 @@ class Layout extends Component {
                 <a className="sosyal" href="https://www.linkedin.com/in/ezgidinler"> Linkedin </a>
                 <a className="sosyal" href="hhttps://www.instagram.com/ezgidnlr/?hl=en"> Instagram </a>
               </h1>
-
               <article className="doc-content">
-
-                <div className="baslik">
-                  <a className="basliklinkleri" href="/detay-bir"> {this.props.generalInformations.map(generalInformation => generalInformation.baslik)} </a>
-                </div>
-
                 {
-                  this.props.generalInformations.map(generalInformation => generalInformation.genelBilgi)
+                  this.props.generalInformations.map((generalInformation, index) => {
+                    let item = null;
+                    item =
+                      <div key={index}>
+                        <div >
+                          <div className="baslik">
+                            <a className="basliklinkleri" href={"/detay-bir/" + generalInformation._id}  > {generalInformation.baslik} </a>
+                          </div>
+                          <div className="genelBilgi">
+                            {generalInformation.genelBilgi}
+                          </div>
+                          <div className="tarih">
+                            {generalInformation.tarih}
+                          </div>
+                        </div>
+                      </div>
+                    return item;
+                  })
                 }
-                <div className="tarih">
-                  {
-                    this.props.generalInformations.map(generalInformation => generalInformation.tarih)
-                  }
-                </div>
-
-              </article>
-            </section>
-            <section id="more" className="Top_doc hentry">
-              <article className="doc-content">
-
-                <div className="baslik">
-                  <a className="basliklinkleri" href="/#"> {this.props.generalInformations.map(generalInformation => generalInformation.baslik)} </a>
-                </div>
-
-                {
-                  this.props.generalInformations.map(generalInformation => generalInformation.genelBilgi)
-                }
-                <div className="tarih">
-                  {
-                    this.props.generalInformations.map(generalInformation => generalInformation.tarih)
-                  }
-                </div>
-
               </article>
             </section>
             <section id="extra" className="hentry">

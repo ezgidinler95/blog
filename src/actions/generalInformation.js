@@ -13,6 +13,10 @@ export const UPDATE_GENERAL_INFORMATION_PENDING = "UPDATE_GENERAL_INFORMATION_PE
 export const UPDATE_GENERAL_INFORMATION_FULFILLED = "UPDATE_GENERAL_INFORMATION_FULFILLED";
 export const UPDATE_GENERAL_INFORMATION_REJECTED = "UPDATE_GENERAL_INFORMATION_REJECTED";
 
+export const GET_GENERAL_INFORMATION_PENDING = "GET_GENERAL_INFORMATION_PENDING";
+export const GET_GENERAL_INFORMATION_FULFILLED = "GET_GENERAL_INFORMATION_FULFILLED";
+export const GET_GENERAL_INFORMATION_REJECTED = "GET_GENERAL_INFORMATION_REJECTED";
+
 
 export function addGeneralInformation(generalInformation) {
     return async dispatch => {
@@ -41,5 +45,15 @@ export function getAllGeneralInformation() {
             payload: axios.get(`${API_URL}/general-information/all`)
                 .then(result => result.data)
         });
+    }
+}
+
+export function getGeneralInformation(generalInformationId, token) {
+    return async dispatch => {
+        await dispatch({
+            type: "GET_GENERAL_INFORMATION",
+            payload: axios.get(`${API_URL}/general-information/${generalInformationId}`, { headers: { "x-access-token": token } })
+                .then(result => result.data)
+        })
     }
 }

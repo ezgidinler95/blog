@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { addGeneralInformation } from '../../../actions/generalInformation';
-import { addHobby, updateHobby } from '../../../actions/hobby';
+import { addHobby, updateHobby, getAllHobby } from '../../../actions/hobby';
 import swal from 'sweetalert';
 import { getAllGeneralInformation, updateGeneralInformation } from '../../../actions/generalInformation';
-import { getAllHobby } from '../../../actions/hobby';
 import { addAgenda, getAllAgenda, updateAgenda } from '../../../actions/agenda';
-import { FormControl, InputLabel, Link, } from "@material-ui/core";
+import { Link, } from "@material-ui/core";
 import '../../../styles/assetsss/css/custom.css';
 import '../../../styles/assetsss/css/concept.min.css';
 //import '../../../styles/assetsss/plugins/custom.css';
@@ -534,49 +533,10 @@ class Layout extends Component {
                         {/* Page Inner */}
 
 
-                        <div>  <Link rel="stylesheet" href="/panel-genel-bilgiler" style={{ backgroundColor: "pink", border: "1px solid blue", marginLeft: "200px" }} >GENEL BİLGİLERİ GÜNCELLE</Link></div>
+                        <div>  <Link rel="stylesheet" href="/panel-genel-bilgiler" style={{ backgroundColor: "pink", border: "1px solid blue", marginLeft: "200px" }} >GENEL BİLGİ EKLE VE YA  GÜNCELLE</Link></div>
+                        <div>  <Link rel="stylesheet" href="/hobiler" style={{ backgroundColor: "pink", border: "1px solid blue", marginLeft: "200px" }} >HOBİ EKLE VE YA GÜNCELLE</Link></div>
 
-                        <div className="page-inner no-page-title">
-                            <div id="main-wrapper">
-                                <div className="divider" />
-                                <div className="row">
-                                    <div className="col-xl">
-                                        <div className="card">
-                                            <div className="card-body">
-                                                <h5 className="card-title">HOBİLER </h5>
-                                                <form encType="multipart/form-data" onSubmit={(e) => { e.preventDefault(); this.handleUpdateHobbySubmit(e, this.state) }}>
-                                                    <div className="form-group">
-                                                        <input type="hidden" name="_id" defaultValue={this.props.hobbies.map(hobby => hobby._id)} />
-                                                        <label htmlFor="baslik">baslik </label>
-                                                        <input type="text" className="form-control" name="baslik" id="baslik" defaultValue={this.props.hobbies.map(hobby => hobby.baslik)} aria-describedby="emailHelp" placeholder=" baslik" />
-                                                        <label htmlFor="spor">En sevdiğiniz spor </label>
-                                                        <input type="text" className="form-control" name="spor" id="spor" defaultValue={this.props.hobbies.map(hobby => hobby.spor)} aria-describedby="emailHelp" placeholder="Spor" />
-                                                        <label htmlFor="spor">En sevdiğiniz dans </label>
-                                                        <input type="text" className="form-control" name="dans" id="dans" defaultValue={this.props.hobbies.map(hobby => hobby.dans)} aria-describedby="emailHelp" placeholder="Dans" />
-                                                        <label htmlFor="spor">En sevdiğiniz müzik türü  </label>
-                                                        <input type="text" className="form-control" name="müzik" id="müzik" defaultValue={this.props.hobbies.map(hobby => hobby.müzik)} aria-describedby="emailHelp" placeholder="Müzik" />
-                                                        <label htmlFor="spor">En sevdiğiniz kitap </label>
-                                                        <input type="text" className="form-control" name="kitap" id="kitap" defaultValue={this.props.hobbies.map(hobby => hobby.kitap)} aria-describedby="emailHelp" placeholder="Kitap " />
-                                                        <FormControl fullWidth style={{ margin: "35px", padding: "35px", color: "black", fontSize: "10px" }}>
-                                                            <InputLabel htmlFor="blockListExcel">GÖRSELİ YÜKLEYİNİZ</InputLabel>
-                                                            <br />
-                                                            <br />
-                                                            <input
-                                                                type="file"
-                                                                name="image"
-                                                                onChange={this.onChangeHandlerFiles}
-                                                            />
-                                                        </FormControl>
-                                                    </div>
-                                                    <button type="submit" className="btn btn-primary">KAYDET</button>
-                                                </form>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div className="page-inner no-page-title">
                             <div id="main-wrapper">

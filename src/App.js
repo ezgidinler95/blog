@@ -5,6 +5,7 @@ import { SITE_URL } from './config/config';
 import Blog from './components/Blog/Index/index';
 import Panel from './components/Panel/Index/index';
 import GenelBilgiler from './components/Panel/GenelBilgiler/index';
+import Hobiler from './components/Panel/Hobiler/index';
 import DetayBir from './components/Blog/BlogDetay/detayBir';
 import Login from './components/Panel/Login/index';
 import { Route } from 'react-router-dom';
@@ -23,7 +24,8 @@ class App extends Component {
         <Route exact path="/" component={Blog} />
         <Route exact path="/panel" component={Panel} />
         <Route exact path="/panel-genel-bilgiler" component={GenelBilgiler} />
-        <Route exact path="/detay-bir" component={DetayBir} />
+        <Route exact path="/hobiler" component={Hobiler} />
+        <Route exact path="/detay-bir/:_id" component={DetayBir} />
       </div >
     );
   }

@@ -1,65 +1,40 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { getAllGeneralInformation } from '../../../actions/generalInformation';
-import { getAllHobby } from '../../../actions/hobby';
-import { getAllAgenda, } from '../../../actions/agenda';
+import { getAllGeneralInformation, getGeneralInformation } from '../../../actions/generalInformation';
 import '../../../styles/assets/css/font-awesome.css';
 //import '../../../styles/assets/css/jquary.fancybox.css';
 import '../../../styles/blog.css';
-import { addOpinion, getAllOpinions } from '../../../actions/opinion';
-import swal from 'sweetalert';
-
 
 
 class DetayBir extends Component {
 
     async UNSAFE_componentWillMount() {
-        await this.props.getAllGeneralInformation();
-        await this.props.getAllHobby();
-        await this.props.getAllOpinions();
-        await this.props.getAllAgenda();
-    };
+        const { match: { params } } = this.props;
+        await this.props.getGeneralInformation(params._id);
+    }
     render() {
+        console.log(this.props.generalInformation, "gelen");
         return (
             <div className="App" >
                 <div>
-
                     <div className="container">
                         <section id="more" className="Top_doc hentry">
-
                             <article className="doc-content">
-
-                                <div className="baslik">
-                                    <a className="basliklinkleri" href="/#"> {this.props.generalInformations.map(generalInformation => generalInformation.baslik)} </a>
-                                </div>
-
                                 {
-                                    this.props.generalInformations.map(generalInformation => generalInformation.genelBilgi)
+                                    <div >
+                                        {/* <div >
+                                            <div className="baslik">
+                                                {this.props.generalInformation.baslik}
+                                            </div>
+                                            <div className="genelBilgi">
+                                                {this.props.generalInformation.genelBilgi}
+                                            </div>
+                                            <div className="tarih">
+                                                {this.props.generalInformation.tarih}
+                                            </div>
+                                        </div> */}
+                                    </div>
                                 }
-                                <div className="tarih">
-                                    {
-                                        this.props.generalInformations.map(generalInformation => generalInformation.tarih)
-                                    }
-                                </div>
-
-                            </article>
-                        </section>
-                        <section id="more" className="Top_doc hentry">
-                            <article className="doc-content">
-
-                                <div className="baslik">
-                                    <a className="basliklinkleri" href="/#"> {this.props.generalInformations.map(generalInformation => generalInformation.baslik)} </a>
-                                </div>
-
-                                {
-                                    this.props.generalInformations.map(generalInformation => generalInformation.genelBilgi)
-                                }
-                                <div className="tarih">
-                                    {
-                                        this.props.generalInformations.map(generalInformation => generalInformation.tarih)
-                                    }
-                                </div>
-
                             </article>
                         </section>
                     </div>
@@ -69,21 +44,15 @@ class DetayBir extends Component {
     }
 }
 
-const mapStateToProps = ({ generalInformationReducer, hobbyReducer, opinionReducer, agendaReducer }) => {
+const mapStateToProps = ({ generalInformationReducer }) => {
     return {
         ...generalInformationReducer,
-        ...hobbyReducer,
-        ...opinionReducer,
-        ...agendaReducer
     }
 }
 
 const mapDispatchToProps = {
     getAllGeneralInformation,
-    getAllHobby,
-    addOpinion,
-    getAllOpinions,
-    getAllAgenda
+    getGeneralInformation
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)((DetayBir));

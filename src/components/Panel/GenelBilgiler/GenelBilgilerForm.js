@@ -1,19 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
-// material components
 import withStyles from "@material-ui/core/styles/withStyles";
-import style from '../../../styles/style.css';
 
 class GenelBilgilerForm extends React.Component {
-
-    state = {
-
-    }
-
     render() {
-        const { classes } = this.props;
+      //  const { } = this.props;
         return (
             <div className="page-inner no-page-title">
+                <h1 style={{ textAlign: "center", fontSize: "50px", color: "#8014f1" }}>EKLE BAKALIM İÇERİK :D</h1>
                 <div id="main-wrapper">
                     <div className="divider" />
                     <div className="row">
@@ -28,7 +21,7 @@ class GenelBilgilerForm extends React.Component {
                                             <input type="text" className="form-control" name="baslik" id="baslik" aria-describedby="emailHelp" placeholder=" baslik"></input>
                                             <br></br>
                                             <label htmlFor="genelBilgi">GENEL BİLGİ</label>
-                                            <textarea row="120" cols="50" type="text" className="form-control" name="genelBilgi" id="genelBilgi" aria-describedby="emailHelp" placeholder="Genel Bilgi" aria-describedby="emailHelp" placeholder="Genel Bilgi" />
+                                            <textarea row="120" cols="50" type="text" className="form-control" name="genelBilgi" id="genelBilgi" aria-describedby="emailHelp" placeholder="Genel Bilgi" />
                                         </div>
                                         <br></br>
                                         <br></br>
@@ -55,7 +48,7 @@ class GenelBilgilerForm extends React.Component {
                                             <input type="text" className="form-control" name="baslik" id="baslik" defaultValue={this.props.generalInformations.map(generalInformation => generalInformation.baslik)} aria-describedby="emailHelp" placeholder=" baslik"></input>
                                             <br></br>
                                             <label htmlFor="genelBilgi">GENEL BİLGİ</label>
-                                            <textarea row="120" cols="50" type="text" className="form-control" name="genelBilgi" id="genelBilgi" defaultValue={this.props.generalInformations.map(generalInformation => generalInformation.genelBilgi)} aria-describedby="emailHelp" placeholder="Genel Bilgi" aria-describedby="emailHelp" placeholder="Genel Bilgi" />
+                                            <textarea row="120" cols="50" type="text" className="form-control" name="genelBilgi" id="genelBilgi" defaultValue={this.props.generalInformations.map(generalInformation => generalInformation.genelBilgi)} placeholder="Genel Bilgi" />
                                         </div>
                                         <br></br>
                                         <br></br>
