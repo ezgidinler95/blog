@@ -4,18 +4,18 @@ import { getAllGeneralInformation } from '../../../actions/generalInformation';
 import { getAllHobby } from '../../../actions/hobby';
 import { getAllAgenda, } from '../../../actions/agenda';
 import '../../../styles/assets/css/font-awesome.css';
+import { API_HOBBY_IMAGE_URL } from '../../../config/config';
 //import '../../../styles/assets/css/jquary.fancybox.css';
 import '../../../styles/blog.css';
-import { addOpinion, getAllOpinions } from '../../../actions/opinion';
 import swal from 'sweetalert';
-//import { API_HOBBY_IMAGE_URL } from '../../../config/config';
+import { Grid } from "@material-ui/core";
+
 
 class Layout extends Component {
 
   async UNSAFE_componentWillMount() {
     await this.props.getAllGeneralInformation();
     await this.props.getAllHobby();
-    await this.props.getAllOpinions();
     await this.props.getAllAgenda();
   };
 
@@ -41,6 +41,7 @@ class Layout extends Component {
         }
       });
   }
+
   render() {
     return (
       <div className="App" >
@@ -75,6 +76,32 @@ class Layout extends Component {
                 }
               </article>
             </section>
+            <Grid container>
+              <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+                <section id="foto" className="hentry">
+                  {
+                    this.props.hobbies.map((hobby, index) => {
+                      let item = null;
+                      item =
+                        <div key={index}>
+                          <div>
+                            <img
+                              alt="hobi resimler" src={API_HOBBY_IMAGE_URL + hobby.image} />
+                          </div>
+                        </div>
+                      return item;
+                    })
+                  }
+                </section>
+              </Grid>
+              <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+                <section id="sorular" className="hentry">
+                  <label style={{ fontSize: "25px" }}>SORULARINIZ</label>
+                  <br></br>
+                  <input style={{ marginTop: "10px", paddingTop: "10px", width: "500px",  }}></input>
+                </section>
+              </Grid>
+            </Grid>
             <section id="extra" className="hentry">
               <li>
                 <a href="/login"> <b>BLOGU GÜNCELLE</b> </a>
@@ -87,11 +114,10 @@ class Layout extends Component {
   }
 }
 
-const mapStateToProps = ({ generalInformationReducer, hobbyReducer, opinionReducer, agendaReducer }) => {
+const mapStateToProps = ({ generalInformationReducer, hobbyReducer, agendaReducer }) => {
   return {
     ...generalInformationReducer,
     ...hobbyReducer,
-    ...opinionReducer,
     ...agendaReducer
   }
 }
@@ -99,8 +125,6 @@ const mapStateToProps = ({ generalInformationReducer, hobbyReducer, opinionReduc
 const mapDispatchToProps = {
   getAllGeneralInformation,
   getAllHobby,
-  addOpinion,
-  getAllOpinions,
   getAllAgenda
 }
 

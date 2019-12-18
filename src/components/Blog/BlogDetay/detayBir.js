@@ -13,7 +13,6 @@ class DetayBir extends Component {
         await this.props.getGeneralInformation(params._id);
     }
     render() {
-        console.log(this.props.generalInformation, "gelen");
         return (
             <div className="App" >
                 <div>
@@ -22,7 +21,7 @@ class DetayBir extends Component {
                             <article className="doc-content">
                                 {
                                     <div >
-                                        {/* <div >
+                                        <div >
                                             <div className="baslik">
                                                 {this.props.generalInformation.baslik}
                                             </div>
@@ -32,7 +31,7 @@ class DetayBir extends Component {
                                             <div className="tarih">
                                                 {this.props.generalInformation.tarih}
                                             </div>
-                                        </div> */}
+                                        </div>
                                     </div>
                                 }
                             </article>

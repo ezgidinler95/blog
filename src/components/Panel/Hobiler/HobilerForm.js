@@ -5,12 +5,36 @@ import { FormControl, InputLabel, } from "@material-ui/core";
 
 class HobilerForm extends React.Component {
 
+
+    onChangeHandlerFiles = async event => {
+        if (event.target.files.length > 0) {
+            const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+            if (acceptedImageTypes.includes(event.target.files[0].type)) {
+                await this.setState({
+                    [event.target.name]: event.target.files,
+                });
+            } else {
+                this.errorMessage();
+            }
+        }
+    }
+
+    errorMessage = () => {
+        return this.props.enqueueSnackbar('Lütfen bir resim dosyası yükleyin.', {
+            variant: "error",
+            persist: true,
+            action: (
+                <div style={{ color: "#000", fontSize: "13px", cursor: "pointer", fontWeight: "500" }} onClick={() => this.props.closeSnackbar()}>KAPAT</div>
+            ),
+        });
+    }
+
     render() {
         const { } = this.props;
         return (
 
             <div className="page-inner no-page-title">
-                <h1>EKLE BAKALIM İÇERİK :D</h1>
+                <h1 style={{ textAlign: "center", fontSize: "50px", color: "#8014f1" }}>EKLE BAKALIM İÇERİK :D</h1>
                 <div className="page-inner no-page-title">
                     <div id="main-wrapper">
                         <div className="divider" />
@@ -19,7 +43,7 @@ class HobilerForm extends React.Component {
                                 <div className="card">
                                     <div className="card-body">
                                         <h5 className="card-title">HOBİLER </h5>
-                                        <form encType="multipart/form-data" onSubmit={(e) => { e.preventDefault(); this.handleUpdateHobbySubmit(e, this.state) }}>
+                                        <form onSubmit={(e) => { e.preventDefault(); this.props.onSubmitAdd(e, this.state) }}>
                                             <div className="form-group">
                                                 <input type="hidden" name="_id" defaultValue={this.props.hobbies.map(hobby => hobby._id)} />
                                                 <label htmlFor="baslik">baslik </label>
@@ -61,7 +85,7 @@ class HobilerForm extends React.Component {
                                 <div className="card">
                                     <div className="card-body">
                                         <h5 className="card-title">HOBİLER </h5>
-                                        <form encType="multipart/form-data" onSubmit={(e) => { e.preventDefault(); this.handleUpdateHobbySubmit(e, this.state) }}>
+                                        <form onSubmit={(e) => { e.preventDefault(); this.props.onSubmitAdd(e, this.state) }}>
                                             <div className="form-group">
                                                 <input type="hidden" name="_id" defaultValue={this.props.hobbies.map(hobby => hobby._id)} />
                                                 <label htmlFor="baslik">baslik </label>

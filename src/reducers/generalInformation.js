@@ -6,6 +6,7 @@ import {
 } from '../actions/generalInformation';
 const initialState = {
     generalInformations: [],
+    generalInformation: {},
     addGeneralInformationResult: {},
     updateGeneralInformationResult: {},
 }
